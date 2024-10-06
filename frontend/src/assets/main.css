@@ -6,8 +6,20 @@
 
 :root{
     --font-1:'Jost',sans-serif;
+    --bg-1: #4fb83a;
+    --bg-2: #46162d;
 }
 
 .f-1{
     font-family: var(--font-1);
+}
+.bg-primary{
+    background-color: var(--bg-1);
+
+}
+.onHover-primary{
+    background-color: var(--bg-2);
+}
+.color-primary{
+    color:var(--bg-1)
 }

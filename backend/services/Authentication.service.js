@@ -77,8 +77,11 @@ const createPost = async(user,body,file)=>{
 
 // Get All Post
 const AllPosts = async()=>{
-    // const posts =  await BlogPostModel.find({});
-    const posts =  await BlogPostModel.find({_id:id,isDeleted:false}).populate("user","name email");
+    const posts =  await BlogPostModel.find({});
+    // const posts = await BlogPostModel.find({ id, isDeleted: false }).populate("user", "name email");
+
+
+
     return {posts,total:posts.length}
 }   
 
