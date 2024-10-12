@@ -1,7 +1,7 @@
 const express = require('express');
 const { AuthenticationController } = require('../controllers');
 const validate = require('../middlewares/validate');
-const { createUser, loginUser } = require('../validations/user.validation');
+const { createUser, loginUser,ContactDetails } = require('../validations/user.validation');
 const verifiedJWT = require('../middlewares/verifiedToken');
 const { upload } = require('../utils/uploads');
 
@@ -15,6 +15,8 @@ router.route('/post').post(verifiedJWT,upload.single('image'),AuthenticationCont
 router.route('/post').get(AuthenticationController.AllPosts);
 router.route('/post/:id').get(AuthenticationController.SinglePost);
 
-router.route('/post/:id').get(AuthenticationController.SinglePost);
+router.route('/contact').post(validate(ContactDetails),AuthenticationController.Contact);
+
+// router.route('/post/:id').get(AuthenticationController.SinglePost);
 
 module.exports = router;

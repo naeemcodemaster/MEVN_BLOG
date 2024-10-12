@@ -18,6 +18,10 @@
             class="bg-primary inline-block hover:onHover-primary cursor-pointer px-3 py-2 md:px-5 md:py-2 rounded-md text-white">Login</router-link>
         </li>
         <li v-if="token">
+          <router-link to="/dashboard"
+            class="bg-primary inline-block hover:onHover-primary cursor-pointer px-3 py-2 md:px-5 md:py-2 rounded-md text-white">Add Post</router-link>
+        </li>
+        <li v-if="token">
           <button @click="logout"
             class="bg-primary inline-block hover:bg-indigo-600 cursor-pointer px-3 py-2 md:px-5 md:py-2 rounded-md text-white">Logout</button>
         </li>
@@ -33,6 +37,9 @@ import { toast } from 'vue3-toastify';
 const store = useUserStore();
 const token = computed(() => store.token);
 const router = useRouter();
+
+console.log("users",store.user);
+
 const logout = () => {
   try {
     store.removeToken();

@@ -1,5 +1,5 @@
 const httpStatus = require('http-status');
-const {UserModel,BlogPostModel} = require('../models');
+const {UserModel,BlogPostModel,ContactModel} = require('../models');
 const ApiError = require('../utils/ApiError');
 const GenerateToken = require('../utils/jwt.utils');
 
@@ -48,8 +48,6 @@ const login = async (body)=>{
 
 }
 
-
-
 // User Profile Service
 const UserProfile = async(id)=>{
     return await UserModel.findById(id).select("-password");
@@ -57,7 +55,7 @@ const UserProfile = async(id)=>{
 
 // Create single Post
 const createPost = async(user,body,file)=>{
-    const {title,content,} = body;
+    const {title,content,description} = body;
     const existTitle = await BlogPostModel.findOne({title});
     if(existTitle){
         throw new ApiError(httpStatus.BAD_REQUEST,'Title already exist,Try Another Name')
@@ -67,17 +65,20 @@ const createPost = async(user,body,file)=>{
         title:title,
         slug:newTitle,
         content:content,
+        description:description,
         image:file?.filename,
         user:user
     })
 
-    return model;
+    return {
+        msg:'Post added successfully'
+    }
 }
 
 
 // Get All Post
 const AllPosts = async()=>{
-    const posts =  await BlogPostModel.find({});
+    const posts =  await BlogPostModel.find({}).select('-content');
     // const posts = await BlogPostModel.find({ id, isDeleted: false }).populate("user", "name email");
 
 
@@ -104,6 +105,23 @@ const DeletePost =  async(id)=>{
     return {msg:"Post Deleted"};
 }
 
+
+
+const Contact = async(body)=>{
+    const {name,email,message} = body;
+    
+  
+    const model = await ContactModel.create({
+        name:name,
+        email:email,
+        message:message,
+    })
+
+    return {
+        msg:'Thank You for contacting :) '
+    }
+}
+
 module.exports = {
     register,
     login,
@@ -111,5 +129,6 @@ module.exports = {
     createPost,
     AllPosts,
     SinglePost,
-    DeletePost
+    DeletePost,
+    Contact
 }

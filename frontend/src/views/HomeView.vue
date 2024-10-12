@@ -7,7 +7,7 @@
       <div v-for="(item,index) in data" :key="index"
         class="mx-auto w-[90%] duration-300 transition-all shadow hover:shadow-xl md:w-1/2 py-10 pt-4 px-5 mt-4">
         <h1 class="font-bold text-3xl">{{ item.title }}</h1>
-        <p class="" v-html="item.content"></p>
+        <p class="">{{ item.description }}</p>
         <div class="flex justify-end px-10">
           <router-link :to="`/blog/${item._id}`"
             class="bg-primary text-white rounded-md px-12 py-2 text-1xl font-semibold">Explore</router-link>

@@ -40,6 +40,11 @@ class AuthenticationController{
         res.status(httpStatus.OK).send(res_obj);
     })
 
+    static Contact = catchAsync(async (req,res)=>{
+        const res_obj = await AuthenticationService.Contact(req?.body);
+        res.status(httpStatus.CREATED).send(res_obj);
+    })
+
 
 }
 module.exports = AuthenticationController
