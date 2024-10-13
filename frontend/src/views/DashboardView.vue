@@ -39,6 +39,7 @@ import ProtectedLayout from '@/layout/ProtectedLayout.vue';
 import { ref } from 'vue';
 import { toast } from 'vue3-toastify';
 import axios from 'axios';
+import { useBlogStore } from '../stores/blogStore'
 
 const title = ref('');
 const description = ref('');
@@ -48,6 +49,21 @@ const image = ref(null);
 const onChangeImage = (img) => {
     image.value = img;
 }
+
+
+// After submit post, want to reload the data on blog page
+const blogStore = useBlogStore();
+const fetchBlog = async () => {
+  try {
+    const res = await axios.get(`http://localhost:3000/api/v1/post`);
+    const data = await res.data;
+    console.log("fetched", data);
+    blogStore.setBlogs(data.posts);
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 
 const submitForm = async () => {
     try {
@@ -66,6 +82,9 @@ const submitForm = async () => {
         })
         console.log(response.data)
         toast.success(response.data?.msg)
+        fetchBlog();
+
+        
         title.value = "";
         description.value ="";
         text.value = "";

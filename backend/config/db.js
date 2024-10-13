@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-exports.ConnectDB = async ()=>{
-    await mongoose.connect('mongodb+srv://onlinecodemaster:mynameiskhan@cluster0.3ejrz.mongodb.net/mevn_stack?retryWrites=true&w=majority&appName=Cluster0')
-    console.log('connected')
-}
+exports.ConnectDB = async () => {
+  await mongoose.connect(process.env.MONGO_URI);
+  console.log("connected");
+};

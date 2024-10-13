@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import ReigsterView from '../views/RegisterView.vue'
+import nProgress from 'nprogress'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -44,6 +45,19 @@ const router = createRouter({
       component: () => import('../views/DashboardView.vue')
     }
   ]
+})
+
+
+
+// for nProgress npm package setting
+router.beforeResolve((to,from,next)=>{
+  nProgress.start();
+
+  next();
+})
+
+router.afterEach(()=>{
+  nProgress.done();
 })
 
 export default router

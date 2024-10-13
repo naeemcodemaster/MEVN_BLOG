@@ -23,3 +23,7 @@
 .color-primary{
     color:var(--bg-1)
 }
+
+#nprogress .bar{
+    background-color: var(--bg-1) !important;
+}

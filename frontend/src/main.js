@@ -6,6 +6,7 @@ import { OhVueIcon,addIcons } from 'oh-vue-icons'
 import {FaFlag,RiZhihuFill} from 'oh-vue-icons/icons'
 import Vue3Toastify from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css'; // Import toastify styles
+import 'nprogress/nprogress.css'
 
 // Markdown editor
 import VueMarkdownEditor from '@kangc/v-md-editor';
@@ -30,8 +31,10 @@ addIcons(FaFlag,RiZhihuFill)
 
 import App from './App.vue'
 import router from './router'
+import { createHead } from '@vueuse/head';
 
 const app = createApp(App)
+const head = createHead();
 
 app.use(createPinia())
 app.use(Vue3Toastify,{
@@ -40,5 +43,7 @@ app.use(Vue3Toastify,{
 app.component("v-icon",OhVueIcon)
 app.use(router)
 app.use(VueMarkdownEditor);
+app.use(head);
+
 
 app.mount('#app')

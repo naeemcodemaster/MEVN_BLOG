@@ -42,11 +42,21 @@ console.log("users",store.user);
 
 const logout = () => {
   try {
+    // Clear the token from the store and localStorage
     store.removeToken();
-    router.push('/login')
+    localStorage.removeItem('token');
+
+    // Replace the current history entry with the login page and force reload
+    router.replace('/'); // Use replace to avoid adding this to history
+
+    // Clear the session history by pushing a new state and reloading
+    setTimeout(() => {
+      window.history.pushState({}, '', '/');
+      window.location.reload(); // Ensure any cached data is reset
+    }, 100);
   } catch (error) {
-    toast.error(error.message)
+    toast.error(error.message);
   }
-}
+};
 
 </script>
