@@ -67,6 +67,12 @@ const fetchBlog = async () => {
 
 const submitForm = async () => {
     try {
+
+        if(title.value == '' || description.value == '' || text.value == '' || image.value == null){
+            alert('All fields are required')
+            return;
+        }
+
         const formdata = new FormData();
         formdata.append("title",title.value);
         formdata.append("description",description.value);
@@ -84,7 +90,7 @@ const submitForm = async () => {
         toast.success(response.data?.msg)
         fetchBlog();
 
-        
+
         title.value = "";
         description.value ="";
         text.value = "";
